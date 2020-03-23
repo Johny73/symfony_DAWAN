@@ -19,7 +19,7 @@ class HelloController extends AbstractController
         return $response;
     }
 
-    public function convert($kilometers){
+    public function convert(int $kilometers){
         $miles = $kilometers / self::KILOMETERS_PER_MILES;
 
         return $this->json([
