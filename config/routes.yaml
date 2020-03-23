@@ -5,3 +5,7 @@
 hello_first:
     path: /
     controller: App\Controller\HelloController::hello
+
+hello_convert:
+    path: /convert/{kilometers} #les accolades sont pour notifier qu'il s'agit d'un parametre
+    controller: App\Controller\HelloController::convert
