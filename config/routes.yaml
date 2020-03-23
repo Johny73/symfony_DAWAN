@@ -6,8 +6,13 @@ hello_first:
     path: /
     controller: App\Controller\HelloController::hello
 
+hello_second:
+    path: /hello2
+    controller: App\Controller\HelloController::hello2
+
 hello_convert:
     path: /convert/{kilometers} #les accolades sont pour notifier qu'il s'agit d'un parametre
     controller: App\Controller\HelloController::convert
     requirements:
         kilometers: \d+
+
