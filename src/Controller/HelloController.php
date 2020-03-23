@@ -19,7 +19,6 @@ class HelloController extends AbstractController
         return $response;
     }
     public function hello2(){
-        dump("test");
         return new Response(
             "<body>
                 <h1>Bonjour tout le monde</h1>
