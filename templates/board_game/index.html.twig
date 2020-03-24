@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des jeux de société</h1>
+    <ul>
+        {%  for board_game in board_games %}
+            <li>{{ board_game.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
