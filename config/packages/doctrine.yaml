@@ -1,4 +1,4 @@
-doctrine:
+stdoctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
 
