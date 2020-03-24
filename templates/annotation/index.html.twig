@@ -9,7 +9,23 @@
 </style>
 
 <div class="example-wrapper">
+
+    {#Ce commentaire twig ne s'affichera pas dans le code source en navigateur #}
+    <!-- Ce commentaire HTML s'affichera dans le code source en navigateur -->
     <h1>Hello {{ controller_name }}! ✅</h1>
+    <p>Test expression : </p>
+    <ul>
+        <li>{{ 'une Chaîne' }}</li>
+        <li>{{ 'une' ~ 'Chaîne' }}</li> {# le tilde est l'opérteur de concaténation #}
+        <li>{{ (3 + 15) % 3 }}</li>
+        <li>{{ "3" == 2+1 }}</li>
+    </ul>
+    <p>Les 3 syntaxes</p>
+    <ul>
+        <li>instructions  {{ '{% %}' }}</li>
+        <li>interpolation {{ '{{ }}' }}</li>
+        <li>commentaire   {{ '{# #}' }}</li>
+    </ul>
 
     This friendly message is coming from:
     <ul>
