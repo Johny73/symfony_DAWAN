@@ -23,4 +23,19 @@ class BoardGameController extends AbstractController
             'board_games' => $boardGames,
           ]);
     }
+    /**
+     * @Route("/{id}", requirements={"id": "\d+"})
+     */
+    public function show (int $id, BoardGameRepository $repository)
+    {
+        $boardGame = $repository->find($id);
+
+        if(!$boardGame){
+            throw $this->createNotFoundException('ce jeu n\'existe pas');
+        }
+
+        return $this->render('board_game/show.html.twig', [
+            'board_game' => $boardGame,
+        ]);
+    }
 }
