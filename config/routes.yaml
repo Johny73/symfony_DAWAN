@@ -14,5 +14,5 @@ hello_convert:
     path: /convert/{kilometers} #les accolades sont pour notifier qu'il s'agit d'un parametre
     controller: App\Controller\HelloController::convert
     requirements:
-        kilometers: \d+
+        kilometers: \d+ # Cet écriture s'appele RegEx
 
