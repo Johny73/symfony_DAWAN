@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -23,19 +25,38 @@ class BoardGameController extends AbstractController
             'board_games' => $boardGames,
           ]);
     }
+
+
     /**
      * @Route("/{id}", requirements={"id": "\d+"})
+     * le composant ParamConverter est capable de traduire un paramètre de route en :
+     * -entité
+     * --\Datetime
      */
-    public function show (int $id, BoardGameRepository $repository)
+         public function show(BoardGame $boardGame)
     {
-        $boardGame = $repository->find($id);
-
-        if(!$boardGame){
-            throw $this->createNotFoundException('ce jeu n\'existe pas');
-        }
-
         return $this->render('board_game/show.html.twig', [
             'board_game' => $boardGame,
+        ]);
+    }
+    /**
+     * @Route("/new")
+     */
+    public function new()
+    {
+        $game = new BoardGame();
+        $form = $this->createFormBuilder($game) /*le fait de passer game en paramètre crée un lien entre le form et les tables*/
+            ->add('name')
+            ->add('description')
+            ->add('releasedAt', DateType::class, [
+                'html5'=>true,
+                'widget' => 'single_text',
+            ])
+            ->add('ageGroup')
+            ->getForm();
+
+        return $this->render('board_game/new.html.twig',[
+            'new_form' => $form->createview(),
         ]);
     }
 }

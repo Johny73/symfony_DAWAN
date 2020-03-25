@@ -13,6 +13,13 @@
     <dl>
         <dt>Date de sortie</dt>
         <dt>{{ board_game.releasedAt | date('d/m/Y') }}</dt>
+        {# le composant PropertyAccessor essaye dans l'ordre d'appeler:
+            - attribut releasedAt
+            - la méthode releasedAt()
+            - la méthode getReleasedAt()
+            - la méthode isReleasedAt()
+            - la méthode hasRealeasedAt()
+            #}
 
     </dl>
     <p>A partir de : {{ board_game.ageGroup }} ans</p>
