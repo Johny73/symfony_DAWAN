@@ -2,9 +2,6 @@
 
 {% block body %}
 <h1>Nouveau jeu de société</h1>
-    {{ form_start(new_form) }}
-    {{ form_widget(new_form) }}
-    <button>Ajouter</button>
-    {{ form_end(new_form) }}
 
+  {{ include('board_game/_form.html.twig',{form: new_form, action:'Ajouter'}) }}
 {% endblock %}
