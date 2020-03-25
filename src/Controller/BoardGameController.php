@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -40,10 +41,12 @@ class BoardGameController extends AbstractController
             'board_game' => $boardGame,
         ]);
     }
+
     /**
-     * @Route("/new")
+     * @Route("/new", methods={"GET", "POST"})
      */
-    public function new()
+
+    public function new(Request $request, EntityManagerInterface $manager)
     {
         $game = new BoardGame();
         $form = $this->createFormBuilder($game) /*le fait de passer game en paramètre crée un lien entre le form et les tables*/
@@ -52,10 +55,22 @@ class BoardGameController extends AbstractController
             ->add('releasedAt', DateType::class, [
                 'html5'=>true,
                 'widget' => 'single_text',
-                'label' => 'Date de sortie'
+                'label' => 'Date de sortie',
             ])
             ->add('ageGroup', null, ['label' => 'A partir de '])
             ->getForm();
+
+            $form->HandleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $manager->persist($game);
+                $manager->flush();
+
+                $this->addFlash('succes', 'Nouveau jeu ajouté');
+                return $this->redirectToRoute('app_boardgame_show', [
+                    'id' => $game->getId(),
+                ]);
+            }
 
         return $this->render('board_game/new.html.twig',[
             'new_form' => $form->createview(),
