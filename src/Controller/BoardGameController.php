@@ -6,6 +6,7 @@ use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -46,13 +47,14 @@ class BoardGameController extends AbstractController
     {
         $game = new BoardGame();
         $form = $this->createFormBuilder($game) /*le fait de passer game en paramètre crée un lien entre le form et les tables*/
-            ->add('name')
-            ->add('description')
+            ->add('name', null, ['label' =>'Nom'])
+            ->add('description', null, ['label' => 'Description'])
             ->add('releasedAt', DateType::class, [
                 'html5'=>true,
                 'widget' => 'single_text',
+                'label' => 'Date de sortie'
             ])
-            ->add('ageGroup')
+            ->add('ageGroup', null, ['label' => 'A partir de '])
             ->getForm();
 
         return $this->render('board_game/new.html.twig',[
