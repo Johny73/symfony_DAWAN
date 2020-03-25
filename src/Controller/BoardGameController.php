@@ -6,7 +6,7 @@ use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use App\Form\BoardGameType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -43,21 +43,13 @@ class BoardGameController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", requirements={"id": "\d+"})
+     * @Route("/edit/{id}", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function edit(BoardGame $boardGame, Request $request, EntityManagerInterface $manager)
+    public function edit(BoardGame $game, Request $request, EntityManagerInterface $manager)
     {
-        $game = $boardGame;
-        $form = $this->createFormBuilder($game)
-        ->add('name', null, ['label' => 'Nom'])
-            ->add('description', null, ['label' => 'Description'])
-            ->add('releasedAt', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'Date de sortie',
-            ])
-            ->add('ageGroup', null, ['label' => 'A partir de '])
-            ->getForm();
+       $form = $this->createForm(BoardGameType::class, $game, [
+            'method' => 'PUT',
+        ]);
 
         $form->HandleRequest($request);
 
@@ -65,6 +57,7 @@ class BoardGameController extends AbstractController
             $manager->flush();
 
             $this->addFlash('succes', 'Modifications enrégistrées');
+
             return $this->redirectToRoute('app_boardgame_show', [
                 'id' => $game->getId(),
             ]);
@@ -80,27 +73,19 @@ class BoardGameController extends AbstractController
     public function new(Request $request, EntityManagerInterface $manager)
     {
         $game = new BoardGame();
-        $form = $this->createFormBuilder($game) /*le fait de passer game en paramètre crée un lien entre le form et les tables*/
-            ->add('name', null, ['label' =>'Nom'])
-            ->add('description', null, ['label' => 'Description'])
-            ->add('releasedAt', DateType::class, [
-                'html5'=>true,
-                'widget' => 'single_text',
-                'label' => 'Date de sortie',
-            ])
-            ->add('ageGroup', null, ['label' => 'A partir de '])
-            ->getForm();
+        $form = $this->createForm(BoardGameType::class, $game);
 
-            $form->HandleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
-                $manager->persist($game);
-                $manager->flush();
+        $form->HandleRequest($request);
 
-                $this->addFlash('succes', 'Nouveau jeu ajouté');
-                return $this->redirectToRoute('app_boardgame_show', [
-                    'id' => $game->getId(),
-                ]);
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($game);
+            $manager->flush();
+
+            $this->addFlash('succes', 'Nouveau jeu ajouté');
+            return $this->redirectToRoute('app_boardgame_show', [
+                'id' => $game->getId(),
+            ]);
             }
 
         return $this->render('board_game/new.html.twig',[
