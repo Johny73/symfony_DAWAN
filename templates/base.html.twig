@@ -8,6 +8,13 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% for label, messages in app.flashes %} {# ce premier boucle pour regrouper les messages par type#}
+            {% for message in messages %}        {# ce second pour afficher tous les messages du type#}
+                <div class="{{  label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
