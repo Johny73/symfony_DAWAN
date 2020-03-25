@@ -43,9 +43,40 @@ class BoardGameController extends AbstractController
     }
 
     /**
+     * @Route("/edit/{id}", requirements={"id": "\d+"})
+     */
+    public function edit(BoardGame $boardGame, Request $request, EntityManagerInterface $manager)
+    {
+        $game = $boardGame;
+        $form = $this->createFormBuilder($game)
+        ->add('name', null, ['label' => 'Nom'])
+            ->add('description', null, ['label' => 'Description'])
+            ->add('releasedAt', DateType::class, [
+                'html5' => true,
+                'widget' => 'single_text',
+                'label' => 'Date de sortie',
+            ])
+            ->add('ageGroup', null, ['label' => 'A partir de '])
+            ->getForm();
+
+        $form->HandleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash('succes', 'Modifications enrégistrées');
+            return $this->redirectToRoute('app_boardgame_show', [
+                'id' => $game->getId(),
+            ]);
+        }
+
+        return $this->render('board_game/edit.html.twig',[
+            'new_form' => $form->createview(),]);
+    }
+
+    /**
      * @Route("/new", methods={"GET", "POST"})
      */
-
     public function new(Request $request, EntityManagerInterface $manager)
     {
         $game = new BoardGame();

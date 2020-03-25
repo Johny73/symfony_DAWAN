@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Modification du jeu </h1>
+    {{ form_start(new_form) }}
+    {{ form_widget(new_form) }}
+    <button>Modifier</button>
+    {{ form_end(new_form) }}
+
+{% endblock %}
