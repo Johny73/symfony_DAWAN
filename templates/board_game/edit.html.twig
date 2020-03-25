@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Modification du jeu </h1>
+    {{ include('board_game/_form.html.twig',{form: edit_form, action:'Modifier'}) }}
+
+{% endblock %}
