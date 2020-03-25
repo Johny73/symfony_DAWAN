@@ -4,7 +4,7 @@
     <h1>Liste des jeux de société</h1>
     <ul>
         {%  for board_game in board_games %}
-            <li><a href="{{ path('app_boardgame_show', { id: board_game.id }) }}"> {{ board_game.name }}</a></li>
+            <li>{{ board_game.name }}<a href="{{ path('app_boardgame_show', { id: board_game.id }) }}">  Voir  </a><a href="{{ path('app_boardgame_edit', { id: board_game.id }) }}">  Modifier  </a></li>
         {% endfor %}
     </ul>
 {% endblock %}
