@@ -71,7 +71,7 @@ class BoardGameController extends AbstractController
         }
 
         return $this->render('board_game/edit.html.twig',[
-            'new_form' => $form->createview(),]);
+            'edit_form' => $form->createview(),]);
     }
 
     /**
