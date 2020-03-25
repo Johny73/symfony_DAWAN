@@ -24,5 +24,17 @@
     </dl>
     <p>A partir de : {{ board_game.ageGroup }} ans</p>
 
+    <p>Catégories</p>
+    <div>
+        {%  for categorie in board_game.classifiedIn %}
+          {{ categorie.name }} {{ loop.last ? '': ", " }}
+        {%  endfor %}
+    </div>
+
     <a href="{{ path('app_boardgame_edit', { id: board_game.id }) }}">  Modifier  </a>
 {% endblock %}
+
+{#ALTERNATIF
+
+
+#}
