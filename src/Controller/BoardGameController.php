@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\BoardGameType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/board-game")
@@ -35,8 +36,10 @@ class BoardGameController extends AbstractController
      * -entité
      * --\Datetime
      */
-         public function show(BoardGame $boardGame)
+         public function show(BoardGame $boardGame, ValidatorInterface $validator)
     {
+        /* pour faire une validation des données hors formulaire, il faut ajouter le validatorinterface dans les paramètres et ajouter la ligne ci-dessous*/
+        $errors = $validator->validate($boardGame);
         return $this->render('board_game/show.html.twig', [
             'board_game' => $boardGame,
         ]);
