@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\BoardGame;
+use App\Form\BoardGameType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,33 +20,8 @@ class BoardGameRepository extends ServiceEntityRepository
         parent::__construct($registry, BoardGame::class);
     }
 
-    // /**
-    //  * @return BoardGame[] Returns an array of BoardGame objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?BoardGame
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
+    /**
+    * @return BoardGame[] Returns an array of BoardGame objects
     */
     public function findWithCategories()
     {
@@ -57,4 +33,15 @@ class BoardGameRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    /**
+     * @return BoardGame[] Returns an array of BoardGame objects
+     * Alternatif en DQL
+     */
+public function findWithCategoriesBis()
+{
+     return $this->getEntityManager()->createQuery(
+         'SELECT b, c FROM '.BoardGame::class.' b LEFT JOIN b.classifiedIn c ORDER BY b.releasedAt DESC'
+     )->setMaxResults(50)
+         ->getResult();
+}
 }
