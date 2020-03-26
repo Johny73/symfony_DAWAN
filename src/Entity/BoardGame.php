@@ -47,6 +47,13 @@ class BoardGame
      */
     private $classifiedIn;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer")
+     */
+    private $authorIs;
+
     public function __construct()
     {
         $this->classifiedIn = new ArrayCollection();
@@ -126,6 +133,32 @@ class BoardGame
     {
         if ($this->classifiedIn->contains($classifiedIn)) {
             $this->classifiedIn->removeElement($classifiedIn);
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection|User[]
+     */
+
+       public function getAuthorIs(): Collection
+    {
+        return $this->authorIs;
+    }
+
+    public function addAuthorIs(User $authorIs): self
+    {
+        if (!$this->authorIs->contains($authorIs)) {
+            $this->authorIs[] = $authorIs;
+        }
+
+        return $this;
+    }
+
+    public function removeAuthorIs(User $authorIs): self
+    {
+        if ($this->authorIs->contains($authorIs)) {
+            $this->authorIs->removeElement($authorIs);
         }
 
         return $this;
