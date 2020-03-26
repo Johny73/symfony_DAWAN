@@ -49,8 +49,7 @@ class BoardGame
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     * @ORM\Column(type="integer")
+     * @ORM\JoinColumn(name="author_is", nullable=false)
      */
     private $authorIs;
 
