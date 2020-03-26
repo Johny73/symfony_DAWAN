@@ -137,29 +137,15 @@ class BoardGame
 
         return $this;
     }
-    /**
-     * @return Collection|User[]
-     */
 
-       public function getAuthorIs(): Collection
+    public function getAuthorIs(): ?User
     {
         return $this->authorIs;
     }
 
-    public function addAuthorIs(User $authorIs): self
+    public function setAuthorIs(?User $authorIs): self
     {
-        if (!$this->authorIs->contains($authorIs)) {
-            $this->authorIs[] = $authorIs;
-        }
-
-        return $this;
-    }
-
-    public function removeAuthorIs(User $authorIs): self
-    {
-        if ($this->authorIs->contains($authorIs)) {
-            $this->authorIs->removeElement($authorIs);
-        }
+        $this->authorIs = $authorIs;
 
         return $this;
     }

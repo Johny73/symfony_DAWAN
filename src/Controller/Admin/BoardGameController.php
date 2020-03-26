@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\BoardGame;
+use App\Entity\User;
 use App\Form\BoardGameType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -49,8 +50,8 @@ class BoardGameController extends AbstractController
     public function new(Request $request, EntityManagerInterface $manager)
     {
         $game = new BoardGame();
+        $game->setAuthorIs($this->getUser());
         $form = $this->createForm(BoardGameType::class, $game);
-
 
         $form->HandleRequest($request);
 
