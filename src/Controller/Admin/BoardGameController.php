@@ -24,6 +24,10 @@ class BoardGameController extends AbstractController
      */
     public function edit(BoardGame $game, Request $request, EntityManagerInterface $manager)
     {
+        /* Bloquer l'accès à la modif si user <> author*/
+        if($game->getAuthorIs() != $this->getUser()){
+            throw $this->createAccessDeniedException();
+        }
         $form = $this->createForm(BoardGameType::class, $game, [
             'method' => 'PUT',
         ]);
