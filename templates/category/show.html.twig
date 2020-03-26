@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ category.name }}</h1>
+    <div>{{ category.description }}</div>
+    <ul>
+        {% for board_game in category.boardGames %}
+            <li>
+                <a href="{{ path('app_boardgame_show', {id: board_game.id}) }}">{{ board_game.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

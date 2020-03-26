@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\BoardGame;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -26,6 +28,13 @@ class BoardGameType extends AbstractType
                 'label' => 'A partir de ',
                 'attr'=> ['min'=>0,]
                 ])
+            ->add('classifiedIn', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'label' => 'Catégories',
+                'required' => false,
+    ])
             ->getForm();
         ;
     }
