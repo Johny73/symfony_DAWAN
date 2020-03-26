@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\BoardGame;
-use App\Entity\User;
 use App\Form\BoardGameType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,13 +20,11 @@ class BoardGameController extends AbstractController
 {
     /**
      * @Route("/edit/{id}", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @isGranted("GAME_EDIT", subject="game")
      */
     public function edit(BoardGame $game, Request $request, EntityManagerInterface $manager)
     {
-        /* Bloquer l'accès à la modif si user <> author*/
-        if($game->getAuthorIs() != $this->getUser()){
-            throw $this->createAccessDeniedException();
-        }
+
         $form = $this->createForm(BoardGameType::class, $game, [
             'method' => 'PUT',
         ]);
