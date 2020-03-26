@@ -3,9 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\BoardGame;
-use App\Form\BoardGameType;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method BoardGame|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,8 +22,8 @@ class BoardGameRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return BoardGame[] Returns an array of BoardGame objects
-    */
+     * @return BoardGame[]
+     */
     public function findWithCategories()
     {
         return $this->createQueryBuilder('b')
@@ -31,17 +32,32 @@ class BoardGameRepository extends ServiceEntityRepository
             ->orderBy('b.releasedAt', 'DESC')
             ->setMaxResults(50)
             ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return BoardGame[]
+     */
+    public function findWithCategoriesBis()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT b, c FROM '.BoardGame::class.' b '.
+            'LEFT JOIN b.classifiedIn c '.
+            'ORDER BY b.releasedAt DESC'
+        )->setMaxResults(50)
             ->getResult();
     }
-    /**
-     * @return BoardGame[] Returns an array of BoardGame objects
-     * Alternatif en DQL
-     */
-public function findWithCategoriesBis()
-{
-     return $this->getEntityManager()->createQuery(
-         'SELECT b, c FROM '.BoardGame::class.' b LEFT JOIN b.classifiedIn c ORDER BY b.releasedAt DESC'
-     )->setMaxResults(50)
-         ->getResult();
-}
+
+    public function findByClassifiedInOne(Category $category)
+    {
+        return $this->createQueryBuilder('b')
+            ->join('b.classifiedIn', 'c', Join::WITH, 'c = :category')
+            ->orderBy('b.releasedAt', 'DESC')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->setParameter('category', $category)
+            ->getResult()
+            ;
+    }
 }

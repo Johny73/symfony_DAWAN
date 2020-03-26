@@ -32,18 +32,18 @@ class BoardGame
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\LessThanOrEqual("today", message="La date doit impérativement être dans le passé")
+     * @Assert\LessThanOrEqual("today", message="Choisissez une date dans le passé")
      */
     private $releasedAt;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\GreaterThan(0, message="choisir un age > 0")
+     * @Assert\GreaterThan(0, message="Définir un âge au dessus de zéro")
      */
     private $ageGroup;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="boardGames")
      */
     private $classifiedIn;
 
