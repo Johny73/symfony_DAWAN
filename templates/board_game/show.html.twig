@@ -22,7 +22,7 @@
             #}
 
     </dl>
-    <p>{{'board_game.show_page.ageGroup'|trans}} : {{ board_game.ageGroup }} {{ 'board_game.show_page.age'|trans }}</p>
+    <p>{{'board_game.show_page.ageGroup.label'|trans}} : {{ 'board_game.show_page.ageGroup.display'|trans({'%value%' :board_game.ageGroup })}}</p>
 
     <p>{{'board_game.show_page.categories'|trans}}</p>
     <div>
@@ -31,7 +31,7 @@
         {%  endfor %}
     </div>
 {%  if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_admin_boardgame_edit', { id: board_game.id }) }}">  {{'board_game.action.modify'|trans}}  </a>
+    <a href="{{ path('app_admin_boardgame_edit', { id: board_game.id }) }}">  {{'board_game.action.edit'|trans}}  </a>
 {% endif %}
 {% endblock %}
 

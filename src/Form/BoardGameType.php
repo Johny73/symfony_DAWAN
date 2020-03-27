@@ -16,8 +16,8 @@ class BoardGameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, ['label' => 'Nom'])
-            ->add('description', null, ['label' => 'Description'])
+            ->add('name', null, ['label' => 'board_game.name.label'])
+            ->add('description', null, ['label_format' => 'board_game.%name%.label'])
             ->add('releasedAt', DateType::class, [
                 'html5' => true,
                 'widget' => 'single_text',

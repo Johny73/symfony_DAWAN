@@ -4,14 +4,23 @@ board_game:
   action:
     see: 'Voir'
     return: 'Retour à la liste'
-    modify: 'Modifier'
+    edit: 'Modifier'
+    new: 'Nouveau'
   show_page:
     title: 'détail du jeu'
     game_name: 'Nom du jeu'
     game_description: 'Description'
     game_description_missing: 'En cours de rédaction'
     release: 'Date de sortie'
-    ageGroup: 'A partir de'
-    age: 'ans'
+    ageGroup:
+      label: 'A partir de'
+      display: '%value% ans'
     categories: 'Catégories'
-
+  new_page:
+    title: 'Nouveau jeu'
+  edit_page:
+    title: 'Modification du jeu'
+  name:
+    label: 'Nom'
+  description:
+    label: 'Description'
