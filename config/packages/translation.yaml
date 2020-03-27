@@ -1,0 +1,7 @@
+framework:
+    default_locale: fr #ou par exemple fr_CA = français Canadien
+    translator:
+        default_path: '%kernel.project_dir%/translations'  #%kernel.project_dir% = racine du projet en cours
+        fallbacks:
+            - fr
+            - en #en cas d'absence de message dans la lanque laocale (par défaut ou pas), le message à afficher sera cherché dans ces autres lanqutes
