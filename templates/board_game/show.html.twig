@@ -3,15 +3,15 @@
 {% block body %}
     <a href="{{ path('app_boardgame_index') }}">{{'board_game.action.return'|trans}}</a>
     <h1>{{'board_game.show_page.title'|trans}}</h1>
-        <p>{{'board_game.show_page.game_name'|trans}} : {{ board_game.name }}</p>
+        <p>{{'board_game.name.label'|trans}} : {{ board_game.name }}</p>
         {%  if board_game.description %}
-            <p>{{'board_game.show_page.game_description'|trans}} :{{ board_game.description }}</p>
+            <p>{{'board_game.description.label'|trans}} :{{ board_game.description }}</p>
         {%  else %}
-            <p>{{'board_game.show_page.game_description_missing' | trans  }}</p>
+            <p>{{'board_game.description.missing' | trans  }}</p>
         {% endif %}
 
     <dl>
-        <dt>{{'board_game.show_page.release'|trans}}</dt>
+        <dt>{{'board_game.releasedAt.label'|trans}}</dt>
         <dt>{{ board_game.releasedAt | date('d/m/Y') }}</dt>
         {# le composant PropertyAccessor essaye dans l'ordre d'appeler:
             - attribut releasedAt
@@ -22,9 +22,9 @@
             #}
 
     </dl>
-    <p>{{'board_game.show_page.ageGroup.label'|trans}} : {{ 'board_game.show_page.ageGroup.display'|trans({'%value%' :board_game.ageGroup })}}</p>
+    <p>{{'board_game.ageGroup.label'|trans}} : {{ 'board_game.ageGroup.display'|trans({'%value%' :board_game.ageGroup })}}</p>
 
-    <p>{{'board_game.show_page.categories'|trans}}</p>
+    <p>{{'board_game.classifiedIn.label'|trans}}</p>
     <div>
         {%  for categorie in board_game.classifiedIn %}
           {{ categorie.name }} {{ loop.last ? '': ", " }}
