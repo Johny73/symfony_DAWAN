@@ -32,13 +32,13 @@ class BoardGame
 
     /**
      * @ORM\Column(type="date")
-     * @Assert\LessThanOrEqual("today", message="Choisissez une date dans le passé")
+     * @Assert\LessThanOrEqual("today", message="board_game.before_today")
      */
     private $releasedAt;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\GreaterThan(0, message="Définir un âge au dessus de zéro")
+     * @Assert\GreaterThan(0, message="board_game.ageSupZero")
      */
     private $ageGroup;
 

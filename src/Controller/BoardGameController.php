@@ -9,7 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/board-game")
+ * @Route({
+ *     "en": "/board-game",
+ *     "fr": "/jeu-societe"})
  */
 class BoardGameController extends AbstractController
 {
