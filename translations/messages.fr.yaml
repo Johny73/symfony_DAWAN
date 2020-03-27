@@ -1,0 +1,27 @@
+board_game:
+  index_page:
+    title: 'Liste des jeux de société'
+  action:
+    see: 'Voir'
+    return: 'Retour à la liste'
+    edit: 'Modifier'
+    new: 'Nouveau'
+  show_page:
+    title: 'détail du jeu'
+  new_page:
+    title: 'Nouveau jeu'
+  edit_page:
+    title: 'Modification du jeu'
+  #FIELDS
+  name:
+    label: 'Nom'
+  description:
+    label: 'Description'
+    missing: 'En cours de rédaction'
+  ageGroup:
+    label: 'A partir de'
+    display: '%value% ans'
+  releasedAt:
+    label: 'Date de sortie'
+  classifiedIn:
+    label: 'Catégorie'

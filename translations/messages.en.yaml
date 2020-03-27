@@ -1,0 +1,16 @@
+board_game:
+  index_page:
+    title: 'List of boardgames'
+  action:
+    see: 'Consult'
+    return: 'Back to list'
+    modify: 'Modify'
+  show_page:
+    title: 'Game details'
+    game_name: 'Name'
+    game_description: 'Description'
+    game_description_missing: 'WIP'
+    release: 'Release date'
+    ageGroup: 'From'
+    age: 'years'
+    categories: 'Categories'
