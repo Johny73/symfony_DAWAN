@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <a href="{{ path('app_boardgame_index') }}">Retour à la liste</a>
-    <h1>détail du jeu</h1>
-        <p>Nom du jeu : {{ board_game.name }}</p>
+    <a href="{{ path('app_boardgame_index') }}">{{'board_game.action.return'|trans}}</a>
+    <h1>{{'board_game.show_page.title'|trans}}</h1>
+        <p>{{'board_game.show_page.game_name'|trans}} : {{ board_game.name }}</p>
         {%  if board_game.description %}
-            <p>Description :{{ board_game.description }}</p>
+            <p>{{'board_game.show_page.game_description'|trans}} :{{ board_game.description }}</p>
         {%  else %}
-            <p>Description en cours de redaction</p>
+            <p>{{'board_game.show_page.game_description_missing' | trans  }}</p>
         {% endif %}
 
     <dl>
-        <dt>Date de sortie</dt>
+        <dt>{{'board_game.show_page.release'|trans}}</dt>
         <dt>{{ board_game.releasedAt | date('d/m/Y') }}</dt>
         {# le composant PropertyAccessor essaye dans l'ordre d'appeler:
             - attribut releasedAt
@@ -22,16 +22,16 @@
             #}
 
     </dl>
-    <p>A partir de : {{ board_game.ageGroup }} ans</p>
+    <p>{{'board_game.show_page.ageGroup'|trans}} : {{ board_game.ageGroup }} {{ 'board_game.show_page.age'|trans }}</p>
 
-    <p>Catégories</p>
+    <p>{{'board_game.show_page.categories'|trans}}</p>
     <div>
         {%  for categorie in board_game.classifiedIn %}
           {{ categorie.name }} {{ loop.last ? '': ", " }}
         {%  endfor %}
     </div>
 {%  if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_admin_boardgame_edit', { id: board_game.id }) }}">  Modifier  </a>
+    <a href="{{ path('app_admin_boardgame_edit', { id: board_game.id }) }}">  {{'board_game.action.modify'|trans}}  </a>
 {% endif %}
 {% endblock %}
 

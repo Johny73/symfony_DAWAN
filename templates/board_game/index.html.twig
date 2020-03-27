@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des jeux de société</h1>
+    <h1>{{ 'board_game.index_page.title'|trans }}</h1>
     <ul>
         {%  for board_game in board_games %}
-            <li>{{ board_game.name }}<a href="{{ path('app_boardgame_show', { id: board_game.id }) }}">  Voir  </a></li>
+            <li>{{ board_game.name }}<a href="{{ path('app_boardgame_show', { id: board_game.id }) }}">  {{'board_game.action.see'|trans  }}  </a></li>
         {% endfor %}
     </ul>
 {% endblock %}
